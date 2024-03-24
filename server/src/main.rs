@@ -42,7 +42,6 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let serialized_msg = serde_json::to_string(&msg).unwrap();
 
                 loop {
-                    println!("sending udp broadcast...");
                     socket_for_broadcast
                         .send_to(serialized_msg.as_bytes(), BROADCAST_ADDR)
                         .await
@@ -77,7 +76,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     loop {
         let (len, addr) = socket.recv_from(&mut buf).await?;
 
-        println!("Received data on UDP from {}", addr);
+        // println!("Received data on UDP from {}", addr);
 
         let received_msg: Message = serde_json::from_slice(&buf[..len])?;
 
